@@ -1,0 +1,54 @@
+@media screen and (min-width: 450px){/*MIN_DEVICE_WIDTH!*/
+	body{
+		min-width: 450px;
+		background-color: #acc5ff;
+	}
+
+	.title{
+		background-color: #627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		padding: 8px;
+		text-align: center;
+		margin-right: 10em;
+		margin-left: 10em;
+	}
+
+	
+	#song_history{
+		background-color:#627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		text-align: center;
+		margin-right:  auto;
+		margin-left: auto;
+	}
+}
+
+@media screen and (max-width: 449px){/*MAX_DEVICE_WIDTH*/
+
+	body{
+		min-width: 200px;
+		background-color: #acc5ff;
+	}
+
+	.title{
+		background-color: #627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		padding: 8px;
+		text-align: center;
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-top: 20px;
+	}
+
+	#song_history{
+		background-color:#627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		text-align: center;
+		margin-right:  auto;
+		margin-left: auto;
+	}
+}

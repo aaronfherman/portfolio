@@ -1,0 +1,212 @@
+@media screen and (min-width: 650px){/*MIN_DEVICE_WIDTH!*/
+	body{
+		min-width: 650px;
+		background-color: #acc5ff;
+	}
+
+	.title{
+		background-color: #627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		padding: 8px;
+		color: white;
+		text-align: center;
+		margin-right: 10em;
+		margin-left: 10em;
+	}
+
+	.input{
+		color: white;
+		padding: 1em;
+		display: flex;
+		max-width: 1600px;
+		margin: auto;
+	}
+
+	.songinfo{
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		flex: 1 45%;
+		margin-right: .5em;
+	}
+
+	.chordeditor{
+		text-align: center;
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		flex: 1 45%;
+		margin-right: .5em;
+	}
+
+	.chordinfo{
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		flex: 1 45%;
+		margin-left: .5em;
+	}
+	.boxpair{
+		display: inline-block;
+	}
+
+	#output{
+		text-align: center;
+		color: white;
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		flex: 1 45%;
+		margin-left: .5em;
+	}
+
+	#outputimage{
+		background-color:#ffffff;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
+	.email{
+		background-color: #627bc5;
+		font-family: 'Orbitron', sans-serif;
+		border-radius: 15px;
+		padding: 2px;
+		color: white;
+		text-align: center;
+		margin-right: 15em;
+		margin-left: 15em;
+		margin-top: 1em;
+	}
+
+	.location{
+		background-color: #627bc5;
+		font-family: 'Orbitron', sans-serif;
+		border-radius: 15px;
+		padding: 2px;
+		color: white;
+		text-align: center;
+		margin-right: 15em;
+		margin-left: 15em;
+		margin-top: 1em;
+	}
+	location{
+		color: green;
+	}
+	example{
+		color: green;
+	}
+}
+
+@media screen and (max-width: 649px){/*MAX_DEVICE_WIDTH*/
+
+	body{
+		min-width: 300px;
+		background-color: #acc5ff;
+	}
+
+	.title{
+		background-color: #627bc5;
+		font-family: 'Shadows Into Light', cursive;
+		border-radius: 15px;
+		padding: 8px;
+		color: white;
+		text-align: center;
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-top: 20px;
+	}
+
+	.songinfo{
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		/*flex: 1 45%;*/
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+
+	.chordeditor{
+		text-align: center;
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		margin-top: 10px;
+		margin-right: .5em;
+	}
+
+	.chordinfo{
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		/*flex: 1 45%;*/
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+
+	#output{
+		text-align: center;
+		background-color: #627bc5;
+		font-family: 'Amatic SC', cursive;
+		letter-spacing: 2px;
+		border-radius: 15px;
+		padding: 20px;
+		/*flex: 1 45%;*/
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-top: 10px;
+	}
+
+	.outputimage{
+		background-color:#ffffff;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+
+	.email{
+		background-color: #627bc5;
+		font-family: 'Orbitron', sans-serif;
+		border-radius: 15px;
+		padding: 2px;
+		color: white;
+		text-align: center;
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-top: 10px;
+	}
+
+	.location{
+		background-color: #627bc5;
+		font-family: 'Orbitron', sans-serif;
+		border-radius: 15px;
+		padding: 2px;
+		color: white;
+		text-align: center;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+	location{
+		color: green;
+	}
+	example{
+		color: green;
+	}
+}

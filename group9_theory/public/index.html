@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>HarmonyGenerator</title>
+
+		<meta charset="utf-8" />
+		
+		<link href='https://fonts.googleapis.com/css?family=Amatic+SC:700|Shadows+Into+Light|Orbitron:500' rel='stylesheet' type='text/css'>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+		<!-- Bootstrap CDN for CSS, jQuery, Javascript -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<!-- Responsive to mobile devices -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel =  "stylesheet" href = "style.css">
+
+		<script src="chords.js"></script>
+		<script src="abcjs_basic_2.2-min.js"></script>
+	</head>
+
+	<body onload="make_chords_table()">
+		<div class = "title">
+			<h1>4-Voice Harmony Generator</h1>
+		</div>
+
+		<div class = "input">
+			<!-- Input about the song -->
+			<div class ="songinfo">
+				<form role="form">
+			
+					<div class="form-group">
+						<label for="songTitle">Title <input type = "text" class="form-control" id= "songTitle"></label>
+					</div>
+
+					<div class="form-group">
+						<label for="numchords">Num Chords</label>
+						<select class="form-control" id="numchords" onchange = "make_chords_table()">
+							<option value=1>1</option>
+							<option value=2>2</option>
+							<option value=3>3</option>
+							<option value=4>4</option>
+							<option value=5>5</option>
+							<option value=6>6</option>
+							<option value=7>7</option>
+							<option value=8>8</option>
+							<option value=9>9</option>
+							<option value=10>10</option>
+							<option value=11>11</option>
+							<option value=12>12</option>
+							<option value=13>13</option>
+							<option value=14>14</option>
+							<option value=15>15</option>
+							<option value=16>16</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="key">Key</label>
+						<select class="form-control" id = "key">
+							<option value="F">F</option>
+							<option value="C">C</option>
+							<option value="G">G</option>
+							<option value="D">D</option>
+							<option value="A">A</option>
+							<option value="E">E</option>
+							<option value="B">B</option>
+							<option value="Bflat">B&#9837</option>
+							<option value="Eflat">E&#9837</option>
+							<option value="Aflat">A&#9837</option>
+							<option value="Fsharp">F&#9839</option>
+							<option value="Csharp">C&#9839</option>
+						</select>
+					</div>
+				
+
+					<div class="form-group">
+						<div class="checkbox-inline">
+							<label for="minorkey"><input type="checkbox" id="minorkey">Minor</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="timesig">Time Signature</label> 
+							<select class="form-control" id = "timesig">
+							<option value="4/4">4/4</option>
+							<option value="3/4">3/4</option>
+							<option value="2/4">2/4</option>
+							</select>
+						</h3>
+					</div>
+				</form>
+
+			</div>
+
+			<!-- Display and edit chords -->
+			<div class="chordeditor" >
+				<h3>Chord Editor</h3>
+				<p id = "chord"></p>
+				<button type = "submit" class="btn btn-success" id = "submit" onclick="generate_clicked();">Generate Song</button>
+				<br><br><br>
+				<a href="/history" style = "color: white">Previous Songs</a>
+			</div>
+		
+			<!-- Input about chords -->
+			<div class ="chordinfo">
+				<form role="form">
+					<div class="form-group">
+						<label for="chordroot">Chord Root (select one):</label>
+						<select class="form-control" id="chordroot">
+							<option value=0>A</option>
+							<option value=1>B</option>
+							<option value=2>C</option>
+							<option value=3>D</option>
+							<option value=4>E</option>
+							<option value=5>F</option>
+							<option value=6>G</option>
+						</select>
+					</div>
+				
+					<div class="form-group">
+						<label for="accidental">Accidental (select one):</label>
+						<select class="form-control" id="accidental">
+							<option value=0>&#9838</option>
+							<option value=1>&#9839</option>
+							<option value=-1>&#9837</option>
+						</select>
+					</div>
+				
+
+    				<div class="form-group">
+     					<label for="quality">Quality (select one):</label>
+     					<select class="form-control" id="quality">
+        					<option value="major">Major</option>
+							<option value="minor">Minor</option>
+							<option value="diminished">Diminished</option>
+							<option value="dominant">Dominant</option>
+							<option value="halfdiminished">Half Diminished</option>
+      					</select>
+    				</div>
+
+					<div class="checkbox-inline">
+						<label for="seventh"><input type="checkbox" id="seventh">Seventh</label>
+					</div>
+
+    				<div class="form-group">
+     					<label for="inversion">Inversion (select one):</label>
+     					<select class="form-control" id="inversion">
+        					<option value=0>Root</option>
+        					<option value=1>1st</option>
+        					<option value=2>2nd</option>
+        					<option value=3>3rd</option>
+      					</select>
+    				</div>
+
+    				<div class="form-group">
+    					<label for="duration">Duration (quarter notes)<input type = "text" class="form-control" id= "duration"></label>
+					</div>
+
+				</form>
+				<button type = "submit" class="btn btn-success" id = "submit" onclick="submit_clicked()">Submit Chord</button>
+			</div>
+
+		</div>
+
+		<div id = "output">
+			<h3>output info is here!</h3>
+			<div id = "outputimage">
+				<img src="outputsample.jpg" alt="Smiley face" height="200" width="200">
+			</div>
+		</div>
+		
+		<form role="form">
+			<div class = "location">
+				<h3>Give us your location to see a standard
+					<button type = "reset"  class="btn btn-success" id = "example" onclick="location_example()">example</button>
+				</h3>
+			</div>
+		
+			<div class = "email">
+				<h3>
+					Email yourself output: <input type = "text" class="form-control" id= "email" placeholder = "music@tufts.edu">&nbsp
+					<button type = "button" class="btn btn-success" onclick="sendemail()">Send</button>
+				</h3>
+			</div>
+		</form>
+		
+	</body>
+
+
+</html>

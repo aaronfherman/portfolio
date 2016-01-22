@@ -1,0 +1,18 @@
+/* Your CSS here... */
+
+body {
+	background: #ffddcc;
+	font-family: Courier;
+}
+
+.msg {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	background: #ddffee;
+}
+
+.username {
+	font-size: 75%;
+}

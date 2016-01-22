@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Map Chat</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="style.css" type="text/css"/>
+
+	<!-- from Ming's example http://tuftsdev.github.io/WebProgramming/examples/google_maps/geolocation_map.html -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
+	<script>
+
+	var myLat = 0;
+	var myLng = 0;
+	var myLogin = "MarkStruthers";
+	var myLocation = new google.maps.LatLng(myLat, myLng);
+	var map;
+
+	function setup() {
+		getLoc();
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: myLocation,
+			zoom: 13
+		});
+	}
+
+	function getLoc() {
+		if (navigator.geolocation) { // if supported
+			navigator.geolocation.getCurrentPosition(function(position) {
+				myLat = position.coords.latitude;
+				myLng = position.coords.longitude;
+				myLocation = new google.maps.LatLng(myLat, myLng);
+				fillMap();
+			});
+		}
+	}
+
+	function fillMap() {
+		map.panTo(myLocation);
+		var myMarker = new google.maps.Marker({
+			position: myLocation,
+			icon: 'banana.jpg',
+			map: map,
+			title: "MarkStruthers"
+		});
+		var myInfo = new google.maps.InfoWindow({
+			content: myMarker.title
+		});
+		makeBox(myMarker, myInfo);
+		passLocation();
+	}
+
+	function passLocation() {
+		var postRequest = new XMLHttpRequest();
+		postRequest.open("POST", "https://guarded-sea-5799.herokuapp.com/sendLocation", true);
+		postRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		postRequest.onreadystatechange = function() {
+			if ((postRequest.readyState == 4) &&
+				(postRequest.status == 200)) {
+				mapPeople(JSON.parse(postRequest.responseText));
+			}
+		};
+		postRequest.send("login=" + myLogin + "&lat=" + myLat +
+						"&lng=" + myLng + "&message=hi");
+	}
+
+	function mapPeople(data) {
+		var othersMarkers = new Array(0);
+		var othersInfo = new Array(0);
+		var i;
+		//This loop starts at 1 because data[0] is my own information
+		for (i = 0; i < data.length; i++) {
+			othersMarkers.push(new google.maps.Marker({
+				position: {lat: data[i].lat, lng: data[i].lng},
+				map: map,
+				title: data[i].login
+			}));
+			othersInfo.push(new google.maps.InfoWindow({
+				content: data[i].login + "<br/>" + data[i].message +
+						"<br/>Distance away: " + distanceBetween(myLat, myLng, data[i].lat, data[i].lng) + " mi"
+			}));
+			makeBox(othersMarkers[i], othersInfo[i]);
+		}
+	}
+
+	function makeBox(marker, info) {
+		marker.addListener('click', function() {
+			info.open(map, marker);
+		})
+	}
+
+	//http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+	function distanceBetween(lat1, lng1, lat2, lng2) {
+		var r = 3959; // miles
+		var dLat = toRad(lat2 - lat1);
+		var dLng = toRad(lng2 - lng1);
+		var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+				Math.sin(dLng / 2) * Math.sin(dLng / 2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		var d = r * c;
+		return d;
+	}
+
+	//http://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
+	function toRad(deg) {
+		return deg * Math.PI / 180;
+	}
+	
+	</script>
+</head>
+
+<body onload="setup()">
+	<h1>Map Chat</h1>
+	<div id="map"></div>
+</body>
+
+</html>

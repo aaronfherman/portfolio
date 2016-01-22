@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<title>Security Report: Mapchat</title>
+	<link rel="stylesheet" href="style.css" type="text/css"/>
+	<meta charset="utf-8"/>
+</head>
+
+<body>
+	<h3>Aaron Herman</h3>
+	<h1>SECURITY REPORT: MAPCHAT</h1>
+	<h2>Introduction</h2>
+	<p>This report is drawn from security tests run against Kenny Ling's implementation of a mapchat server that stores users' locations with a message.</p>
+	<h2>Methodology</h2>
+	<p>I used only black box testing by means of curl and HTML to carry out my attacks. Nothing on the server side suggested that any attacks I had not previously tried were possible.</p>
+	<h2>Abstract</h2>
+	<p>The vulnerability of this app stems from the fact that, with only a few exceptions, it allows users from anywhere to submit anything as a query.</p> 
+	<h2>Issues Found</h2>
+	<h3>Script injection</h3>
+	<img src='screenshots/injection2a.png' alt="Curl command with while loop injected" width=600 /><br/>
+	<img class='whiteshot' src='screenshots/injection2b.png' alt="Page freezing" width=1000 />
+	<ul>
+		<li>LOCATION: /sendLocation</li>
+		<li>SEVERITY: High. Can break the site.</li>
+		<li>DESCRIPTION: If the message field includes a &#x3C;script&#x3E; tag, the tag can be used to store JavaScript in the database that will then be injected into the HTML and sent back to every client. The screenshot shown is an example of some JavaScript containing an infinite loop that prevents the site from loading.</li>
+		<li>SOLUTIONS:</li>
+	</ul>
+	<h3>Extra fields</h3>
+	<img src='screenshots/puttingmuch.png' alt="Curl command with extra fields" width=600 />
+	<ul>
+		<li>LOCATION: /sendLocation</li>
+		<li>SEVERITY: Low. Uses a slight amount of extra space in the database but does not affect the server or client(s).</li>
+		<li>DESCRIPTION: If a person adds extra fields to the request body, the data they send is still stored, including the extra fields. This wastes space on the database.</li>
+		<li>SOLUTIONS: Check the request body to make sure that there are only the prescribed fields, e.g. by searching for the = character and checking the text before it to make sure it's a valid field.</li>
+	</ul>
+	<h3>CORS + automated requests</h3>
+	<img src='screenshots/cors1.png' alt="Code that sends many automated requests" width=800 /><br/>
+	<img src='screenshots/cors2.png' alt="MongoLab page section showing that there are 817 documents" width=200 />
+	<ul>
+		<li>LOCATION: /sendLocation</li>
+		<li>SEVERITY: High. Even when requests are sanitized, this can result in breaking the page.</li>
+		<li>DESCRIPTION: Because the app allows CORS for all domains (*), I was able to create an html page with some JavaScript in it that sent nonstop valid requests to the server. This resulted in the use of a ridiculous amount of space in the database (817 documents after 30-60 seconds of running the script), and a ridiculous amount of garbage sent to clients.</li>
+		<li>SOLUTIONS: Only allow CORS for known or trusted domains.</li>
+	</ul>
+	<h2>Conclusion</h2>
+	<p>You never, EVER trust user input.</p>
+</body>
+
+</html>
